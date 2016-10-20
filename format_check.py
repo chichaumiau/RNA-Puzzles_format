@@ -51,7 +51,11 @@ def format_check(fpdb,fref):
 	
 	n_err=0
 	err_log=''
+	if len(struct.child_list)<1:
+		open('%s.format_check.txt'%fpdb,'w').write("0 MODEL in the submission!")
+		return False
 	for i,mdl in enumerate(struct.child_list):
+		if i >=5:break
 		flag=[False for x in xrange(len(atm_list))]
 		for res in mdl.get_residues():
 			for atm in res:
