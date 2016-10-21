@@ -10,3 +10,4 @@ format_check.py is a script used to check the format of a submitted PDB file by 
 To use:  
 *$python format_check.py [To_be_checked.pdb] [Reference.pdb]*  
 
+You can also take a look at rna-pdb-tools (https://github.com/mmagnus/rna-pdb-tools) to get RNAPuzzle ready structures.
