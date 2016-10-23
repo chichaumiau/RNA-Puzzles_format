@@ -40,11 +40,11 @@ def format_check(fpdb,fref):
 		sys.stderr.write('ERROR: structure file format error <%s>\n'%fpdb)
 		print Exception
 		return False
-	res_list=struct_ref[0].get_residues()
 	atm_list=[]
-	for res in res_list:
-		for atm in res:
-			atm_list.append('%s%s'%(res.__repr__(),atm.__repr__()))
+	for chn in struct_ref[0]:
+		for res in chn:
+			for atm in res:
+				atm_list.append('%s%s%s'%(chn.id,res.__repr__(),atm.__repr__()))
 	atm_map={}
 	for i,atm in enumerate(atm_list):
 		atm_map[atm]=i
@@ -57,12 +57,13 @@ def format_check(fpdb,fref):
 	for i,mdl in enumerate(struct.child_list):
 		if i >=5:break
 		flag=[False for x in xrange(len(atm_list))]
-		for res in mdl.get_residues():
-			for atm in res:
-				name='%s%s'%(res.__repr__(),atm.__repr__())
-				n=atm_map.get(name,-1)
-				if n>-1:
-					flag[n]=True
+		for chn in mdl:
+			for res in chn:
+				for atm in res:
+					name='%s%s%s'%(chn.id,res.__repr__(),atm.__repr__())
+					n=atm_map.get(name,-1)
+					if n>-1:
+						flag[n]=True
 		for j,fg in enumerate(flag):
 			if not fg:
 				n_err+=1
