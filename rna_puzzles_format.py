@@ -142,14 +142,14 @@ def readfasta(fp):
 	chains=[]
 	seqs=[]
 	seq=''
-	f=file(fp)
+	f=open(fp)
 	for line in f:
 		if len(line)<2:continue
 		if line[0] == '#':continue
 		if line[0] == '>':
 			a=line.strip().split()
 			if( len(a) < 2 ):
-				print Usage
+				print(Usage)
 				exit(0)
 			name=a[0][1:]
 			chains.append(a[1][0])
@@ -159,7 +159,7 @@ def readfasta(fp):
 		else:
 			seq+=line.strip().upper()
 	seqs.append(seq)
-	return chains,seqs
+	return(chains,seqs)
 
 def prepare_model(chains,seqs):
 	n=1#line number
@@ -181,21 +181,21 @@ def prepare_model(chains,seqs):
 				out+=temp%tuple(xx)
 		out+='TER   %5d        %c %c%4d                      \n'%(n,i,chain,rsn)
 		n+=1
-	return out
+	return(out)
 
 def format_pdb(fp,num=5):
 	chains,seqs=readfasta(fp)
 	out=''
-	for i in xrange(num):
+	for i in range(num):
 		out+='MODEL       %2d                                              \n'%(i+1)
 		out+=prepare_model(chains,seqs)
 		out+='ENDMDL                                                      \n'
 	out+='END                                                        \n'
-	print out,
+	print (out,)
 
 if __name__ == '__main__':
 	if( len(sys.argv) < 2 ):
-		print Usage
+		print(Usage)
 		exit(0)
 	elif (len(sys.argv) > 2):
 		format_pdb(sys.argv[1],int(sys.argv[2]))

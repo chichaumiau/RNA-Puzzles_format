@@ -32,13 +32,13 @@ def format_check(fpdb,fref):
 		struct_ref=parser.get_structure('SI',fref)
 	except Exception:
 		sys.stderr.write('ERROR: structure file format error <%s>\n'%fref)
-		print Exception
+		print(Exception)
 		return False
 	try:
 		struct=parser.get_structure('SI',fpdb)
 	except Exception:
 		sys.stderr.write('ERROR: structure file format error <%s>\n'%fpdb)
-		print Exception
+		print(Exception)
 		return False
 	atm_list=[]
 	for chn in struct_ref[0]:
@@ -56,7 +56,7 @@ def format_check(fpdb,fref):
 		return False
 	for i,mdl in enumerate(struct.child_list):
 		if i >=5:break
-		flag=[False for x in xrange(len(atm_list))]
+		flag=[False for x in range(len(atm_list))]
 		for chn in mdl:
 			for res in chn:
 				for atm in res:
@@ -76,6 +76,6 @@ def format_check(fpdb,fref):
 
 if __name__ == '__main__':
 	if format_check(sys.argv[1],sys.argv[2]):
-		print 'Congratulations! Format check passed!'
+		print('Congratulations! Format check passed!')
 	else:
-		print 'Format error! Please check again and re-submit!'
+		print('Format error! Please check again and re-submit!')
